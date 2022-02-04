@@ -6,10 +6,13 @@ import { useStyles } from './styles';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import downloadjs from 'downloadjs';
+import ShareDialog from '../atomic_components/sharePopup';
 
 function MemeGeneratorDashboard() {
     const classes = useStyles();
     const [imgSrc, setImgSrc] = useState("");
+    const [imgUrl, setImgUrl] = React.useState("");
+    const [shareDialogState, setShareDialogState] = React.useState(false);
     const [memeText, setMemeText] = useState({
         first: "",
         last: ""
@@ -50,8 +53,26 @@ function MemeGeneratorDashboard() {
             });
     }
 
+    // Generic function which will close the dialog everytime invoked
+    const handleDialogClose = () => {
+        setShareDialogState(false);
+    }
+
+    const onShareClick = () => {
+        setShareDialogState(true);
+        htmlToImage.toPng(document.getElementById('meme'))
+            .then(function (dataUrl) {
+                setImgUrl(dataUrl);
+            });
+    }
+
     React.useEffect(() => {
         generateRandomImg()
+        // Do the unmount funtionalities
+        return () => {
+            // Will close the dialog state when moving out from dashboard
+            handleDialogClose();
+        }
     }, [])
 
     return (
@@ -68,9 +89,11 @@ function MemeGeneratorDashboard() {
                 </div>
                 <div className={classes.btnDiv}>
                     <Button className={classes.btn} variant="contained" fullWidth color={"primary"} onClick={generateRandomImg}> Random Image </Button>
-                    <Button className={classes.btn} variant="contained" fullWidth color={"secondary"} onClick={onDownloadClick}> Download </Button>
+                    <Button className={classes.btn} variant="contained" fullWidth color={"primary"} onClick={onDownloadClick}> Save </Button>
+                    <Button className={classes.btn} variant="contained" fullWidth color={"secondary"} onClick={onShareClick}> Share </Button>
                 </div>
             </div>
+            {shareDialogState ? <ShareDialog state={shareDialogState} handleClose={handleDialogClose} url={imgUrl} /> : null}
         </div>
     );
 }

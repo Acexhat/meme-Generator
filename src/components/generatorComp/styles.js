@@ -46,6 +46,6 @@ export const useStyles = makeStyles(() => ({
         width: "47.5%"
     },
     btn: {
-        width: "47.5%"
+        width: "31%"
     }
 }));
