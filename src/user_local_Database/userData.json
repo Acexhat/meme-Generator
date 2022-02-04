@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Akshat Bhaskar",
+    "email": "bhaskar20inn@gmail.com",
+    "password": "xyz123"
+  },
+  {
+    "name": "gaurav Sharma",
+    "email": "gaurav@gmail.com",
+    "password": "xyz123"
+  },
+  {
+    "name": "Ayush",
+    "email": "Ayush@gmail.com",
+    "password": "xyz123"
+  },
+  {
+    "name": "john Smith",
+    "email": "john@gmail.com",
+    "password": "xyz123"
+  },
+  {
+    "name": "IronMan",
+    "email": "IronMan@gmail.com",
+    "password": "xyz123"
+  }
+]
